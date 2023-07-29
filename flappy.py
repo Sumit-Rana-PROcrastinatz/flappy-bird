@@ -18,7 +18,7 @@ class Bird(pygame.sprite.Sprite):
 
     WIDTH = HEIGHT = 32
     SINK_SPEED = 0.18
-    CLIMB_SPEED = 0.2
+    CLIMB_SPEED = 0.25
     CLIMB_DURATION = 200
 
     def __init__(self, x, y, msec_to_climb, images):
@@ -146,7 +146,7 @@ def load_images():
         img.convert()
         return img
 
-    return {'background': load_image('background.png'),
+    return {'background': load_image('bg7.webp'),
             'pipe-end': load_image('pipe_end.png'),
             'pipe-body': load_image('pipe_body.png'),
            
@@ -183,7 +183,7 @@ def main():
     pipes = deque()
 
     frame_clock = 0  
-    score = 0
+    totalscore = 0
     done = paused = False
     while not done:
         clock.tick(FPS)
@@ -227,10 +227,10 @@ def main():
         
         for p in pipes:
             if p.x + PipePair.WIDTH < bird.x and not p.score_counted:
-                score += 1
+                totalscore += 1
                 p.score_counted = True
 
-        score_surface = score_font.render(str(score), True, (255, 255, 255))
+        score_surface = score_font.render(str(totalscore), True, (255, 255, 255))
         score_x = WIN_WIDTH/2 - score_surface.get_width()/2
         display_surface.blit(score_surface, (score_x, PipePair.PIECE_HEIGHT))
 
